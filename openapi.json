@@ -47,6 +47,7 @@
             }
           }
         },
+
         "responses": {
           "200": {
             "description": "Successfully generated access token",
@@ -266,6 +267,11 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully uploaded BOL",
