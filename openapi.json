@@ -259,10 +259,6 @@
                   "carrier",
                   "carrier_alpha_code"
                 ]
-              },
-              "example": {
-                "file_content": "JVBERi0xL...",
-                "file_name": "bol.pdf"
               }
             }
           }
