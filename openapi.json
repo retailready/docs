@@ -47,6 +47,7 @@
             }
           }
         },
+
         "responses": {
           "200": {
             "description": "Successfully generated access token",
@@ -190,6 +191,175 @@
         }
       }
     },
+    "/api/documents/bol/{order_id}": {
+      "post": {
+        "summary": "Attach BOL to an order",
+        "description": "Send a base 64 encoded PDF and attach it to an existing order",
+        "tags": ["Documents"],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The ID of the order to attach the BOL to"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file_content": {
+                    "type": "string",
+                    "description": "Base 64 encoded PDF",
+                    "example": "JVBERi0xL..."
+                  },
+                  "file_name": {
+                    "type": "string",
+                    "description": "Name of the file",
+                    "example": "bol.pdf"
+                  },
+                  "bill_of_lading_number": {
+                    "type": "string",
+                    "description": "Bill of Lading number",
+                    "example": "12345689"
+                  },
+                  "pro_number": {
+                    "type": "string",
+                    "description": "Pro Number",
+                    "example": "123-4567890"
+                  },
+                  "carrier": {
+                    "type": "string",
+                    "description": "Carrier",
+                    "example": "UPS FREIGHT"
+                  },
+                  "carrier_alpha_code": {
+                    "type": "string",
+                    "description": "Carrier Alpha Code",
+                    "example": "EXLA"
+                  },
+                  "scheduled_delivery_date": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$",
+                    "example": "2024-10-19 07:00:00",
+                    "description": "Scheduled delivery date in format: YYYY-MM-DD HH:mm:ss"
+                  }
+                },
+                "required": [
+                  "file_content",
+                  "file_name",
+                  "bill_of_lading_number",
+                  "pro_number",
+                  "carrier",
+                  "carrier_alpha_code"
+                ]
+              },
+              "example": {
+                "file_content": "JVBERi0xL...",
+                "file_name": "bol.pdf"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully uploaded BOL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "BOL uploaded successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing or invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "error": {
+                      "type": "object",
+                      "description": "Error Object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Error code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Invalid Request - Missing required fields",
+                  "error": {
+                    "code": "INVALID_REQUEST"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "error": {
+                      "type": "object",
+                      "description": "Error Object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Error code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Failed to upload BOL",
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/api/v1/orders/{order_id}": {
       "get": {
         "summary": "Get Order Details",
