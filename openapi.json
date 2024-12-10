@@ -411,6 +411,26 @@
                             "po_number": {
                               "type": "string",
                               "example": "3132324301"
+                            },
+                            "brand": {
+                              "type": "object",
+                              "properties": {
+                                "external_brand_code": {
+                                  "type": "string",
+                                  "example": "d055c26e-fdb0-4b02-96ce-2b38ab3a6c8b",
+                                  "nullable": true
+                                }
+                              }
+                            },
+                            "facility": {
+                              "type": "object",
+                              "properties": {
+                                "external_facility_code": {
+                                  "type": "string",
+                                  "example": "c2f57b89-8d7c-4696-ab3c-02ca5eeef1a0",
+                                  "nullable": true
+                                }
+                              }
                             }
                           }
                         },
