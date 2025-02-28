@@ -463,7 +463,7 @@
                               },
                               "sscc": {
                                 "type": "string",
-                                "example": "00001234560000002821"
+                                "example": "00001234560000002822"
                               },
                               "status": {
                                 "type": "string",
