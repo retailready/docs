@@ -682,6 +682,143 @@
           }
         }
       }
+    },
+
+    "/api/orders/compliance_report/binary/{order_id}": {
+      "get": {
+        "summary": "Get Compliance Report Binary",
+        "description": "Get a compliance report binary for an order. This returns base64 encoded PDF content.",
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved compliance report binary",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "filename": {
+                      "type": "string",
+                      "description": "Suggested filename of the content",
+                      "example": "compliance_report_g0f9e8d7-6i5j-4k3l-7m8n-9o0p4q5r6s7t.pdf"
+                    },
+                    "mime_type": {
+                      "type": "string",
+                      "description": "MIME type of the content",
+                      "example": "application/pdf"
+                    },
+                    "pdf_content": {
+                      "type": "string",
+                      "description": "Base64 encoded PDF content",
+                      "example": "JVBERi0xL..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Authentication failed",
+                  "error": {
+                    "code": "UNAUTHORIZED"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Compliance report not found for this order",
+                  "error": {
+                    "code": "NOT_FOUND"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Failed to generate compliance report: Order not found",
+                  "order_id": "g0f9e8d7-6i5j-4k3l-7m8n-9o0p4q5r6s7t"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
