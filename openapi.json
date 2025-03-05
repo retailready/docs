@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "https://api.retailreadyai.com/",
+      "url": "https://api.retailreadyai.com",
       "description": "Production server"
     },
     {
-      "url": "https://staging-api.example.com/v1",
+      "url": "https://stg.retailreadyai.com",
       "description": "Staging server"
     }
   ],

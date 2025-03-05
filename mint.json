@@ -7,7 +7,7 @@
   },
   "api": {
     "playground": {
-      "mode": "hide"
+      "mode": "simple"
     }
   },
   "theme": "prism",
