@@ -683,7 +683,7 @@
         }
       }
     },
-    "/api/orders/analytics/table": {
+    "/api/v1/orders/analytics/table": {
       "get": {
         "summary": "Get Orders Analytics Table",
         "description": "Fetches a paginated list of orders with analytics data.",
