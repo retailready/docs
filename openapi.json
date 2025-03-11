@@ -711,116 +711,57 @@
                   "type": "object",
                   "properties": {
                     "message": { "type": "string", "example": "Orders analytics table retrieved successfully" },
-                    "data": { "type": "object" , "example": [
-                        {
-                            "cartons": [],
-                            "items": [
-                                {
-                                    "application_id": null,
-                                    "case_barcode": "123456789012",
-                                    "case_pack_quantity": 2,
-                                    "created_at": "Tue, 20 Aug 2024 10:30:15 GMT",
-                                    "id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-                                    "line_sequence_number": "002002",
-                                    "order_id": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
-                                    "order_qty_uom": "EA",
-                                    "product_code": "99",
-                                    "product_desc": "EXPLORER-MIX",
-                                    "quantity": 3,
-                                    "sku": "9876543",
-                                    "upc": "123456789012",
-                                    "updated_at": "Thu, 22 Aug 2024 14:05:33 GMT",
-                                    "variant": "XXL",
-                                    "vendor_pn": "EXPLORER-"
-                                }
-                            ],
-                            "labor_time_per_order": 5.2,
-                            "order": {
-                                "brand_id": "bb2240bb-d286-445f-99df-b1f6e88315e4",
-                                "created_at": "Tue, 20 Aug 2024 10:30:15 GMT",
-                                "id": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
-                                "picksheet_code": "4123456789-1234",
-                                "retailer_id": "f123bc99-5163-4b3e-8540-d850acf8ea28",
-                                "status": "Processing"
-                            },
-                            "order_label_count": 2,
-                            "pallet_count": 1,
-                            "total_cost": 150.75,
-                            "unique_order_label_count": 2
-                        },
-                        {
-                            "cartons": [],
-                            "items": [
-                                {
-                                    "application_id": null,
-                                    "case_barcode": "789456123789",
-                                    "case_pack_quantity": 5,
-                                    "created_at": "Wed, 5 Jun 2024 12:15:42 GMT",
-                                    "id": "5678abcd-1234-efgh-5678-ijklmnopqrst",
-                                    "line_sequence_number": "003003",
-                                    "order_id": "bcde2345-6789-0fgh-ijkl-mnopqrstuvwx",
-                                    "order_qty_uom": "BX",
-                                    "product_code": "21",
-                                    "product_desc": "DYNAMIC-BLEND",
-                                    "quantity": 2,
-                                    "sku": "4532671",
-                                    "upc": "789456123789",
-                                    "updated_at": "Thu, 6 Jun 2024 08:25:56 GMT",
-                                    "variant": "MD",
-                                    "vendor_pn": "DYNAMIC-"
-                                }
-                            ],
-                            "labor_time_per_order": 3.8,
-                            "order": {
-                                "brand_id": "aa3340cc-d123-456f-78df-b1f6e88315e4",
-                                "created_at": "Wed, 5 Jun 2024 12:15:42 GMT",
-                                "id": "bcde2345-6789-0fgh-ijkl-mnopqrstuvwx",
-                                "picksheet_code": "5678904321-5678",
-                                "retailer_id": "a987bc99-5163-4b3e-8540-d850acf8ea28",
-                                "status": "Shipped"
-                            },
-                            "order_label_count": 1,
-                            "pallet_count": 2,
-                            "total_cost": 210.30,
-                            "unique_order_label_count": 1
-                        },
-                        {
-                            "cartons": [],
-                            "items": [
-                                {
-                                    "application_id": null,
-                                    "case_barcode": "654789321654",
-                                    "case_pack_quantity": 3,
-                                    "created_at": "Mon, 15 Jul 2024 16:40:20 GMT",
-                                    "id": "7890efgh-1234-ijkl-5678-mnopqrstuvwx",
-                                    "line_sequence_number": "004004",
-                                    "order_id": "cdef3456-7890-ghij-klmn-opqrstuvwxyz",
-                                    "order_qty_uom": "PK",
-                                    "product_code": "35",
-                                    "product_desc": "ENERGIZED-PACK",
-                                    "quantity": 4,
-                                    "sku": "3247865",
-                                    "upc": "654789321654",
-                                    "updated_at": "Tue, 16 Jul 2024 10:10:45 GMT",
-                                    "variant": "LG",
-                                    "vendor_pn": "ENERGIZED-"
-                                }
-                            ],
-                            "labor_time_per_order": 6.4,
-                            "order": {
-                                "brand_id": "cc4450dd-d456-678f-99df-b1f6e88315e4",
-                                "created_at": "Mon, 15 Jul 2024 16:40:20 GMT",
-                                "id": "cdef3456-7890-ghij-klmn-opqrstuvwxyz",
-                                "picksheet_code": "6789012345-9101",
-                                "retailer_id": "b654bc99-5163-4b3e-8540-d850acf8ea28",
-                                "status": "Delivered"
-                            },
-                            "order_label_count": 3,
-                            "pallet_count": 3,
-                            "total_cost": 325.50,
-                            "unique_order_label_count": 3
+                    "data": { 
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Cartons": { "type": "integer", "example": 64 },
+                          "Labels": { "type": "integer", "example": 65 },
+                          "Labor Time (s)": { "type": "number", "format": "float", "example": 348.273675 },
+                          "Order ID": { "type": "string", "example": "ULTAPO-0101109828" },
+                          "Pallets": { "type": "integer", "example": 1 },
+                          "SKUs": { "type": "integer", "example": 1 },
+                          "Status": { "type": "string", "example": "Staged" },
+                          "Units": { "type": "integer", "example": 768 },
+                          "VAS Actions": { "type": "integer", "example": 0 }
                         }
-                    ]
+                      },
+                      "example": [
+                        {
+                          "Cartons": 64,
+                          "Labels": 65,
+                          "Labor Time (s)": 348.273675,
+                          "Order ID": "010109828",
+                          "Pallets": 1,
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 768,
+                          "VAS Actions": 0
+                        },
+                        {
+                          "Cartons": 64,
+                          "Labels": 65,
+                          "Labor Time (s)": 229.07347299999998,
+                          "Order ID": "010109827",
+                          "Pallets": 1,
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 768,
+                          "VAS Actions": 0
+                        },
+                        {
+                          "Cartons": 2,
+                          "Labels": 3,
+                          "Labor Time (s)": 34.484888,
+                          "Order ID": "010109824",
+                          "Pallets": 1,
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 24,
+                          "VAS Actions": 0
+                        }
+                      ]
                     }
                   }
                 }
