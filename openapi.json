@@ -755,7 +755,7 @@
                           "Labels": { "type": "integer", "example": 65 },
                           "Order ID": {
                             "type": "string",
-                            "example": "ULTAPO-0101109828"
+                            "example": "0101109828"
                           },
                           "Pallets": { "type": "integer", "example": 1 },
                           "SKUs": { "type": "integer", "example": 1 },
