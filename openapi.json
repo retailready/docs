@@ -690,14 +690,46 @@
         "tags": ["Orders"],
         "parameters": [
           { "name": "page", "in": "query", "schema": { "type": "integer" } },
-          { "name": "page_size", "in": "query", "schema": { "type": "integer" } },
-          { "name": "created_at_from", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "created_at_to", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "ship_window_from", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "ship_window_to", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "packed_at_from", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "packed_at_to", "in": "query", "schema": { "type": "string", "format": "date" } },
-          { "name": "retailers", "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "created_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "created_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "retailers",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
           { "name": "brands", "in": "query", "schema": { "type": "string" } },
           { "name": "asn", "in": "query", "schema": { "type": "string" } },
           { "name": "search", "in": "query", "schema": { "type": "string" } }
@@ -710,16 +742,21 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string", "example": "Orders analytics table retrieved successfully" },
-                    "data": { 
+                    "message": {
+                      "type": "string",
+                      "example": "Orders analytics table retrieved successfully"
+                    },
+                    "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
                           "Cartons": { "type": "integer", "example": 64 },
                           "Labels": { "type": "integer", "example": 65 },
-                          "Labor Time (s)": { "type": "number", "format": "float", "example": 348.273675 },
-                          "Order ID": { "type": "string", "example": "ULTAPO-0101109828" },
+                          "Order ID": {
+                            "type": "string",
+                            "example": "ULTAPO-0101109828"
+                          },
                           "Pallets": { "type": "integer", "example": 1 },
                           "SKUs": { "type": "integer", "example": 1 },
                           "Status": { "type": "string", "example": "Staged" },
@@ -732,11 +769,8 @@
                           "ASN Sent At": null,
                           "Brand": "Brand1",
                           "Cartons": 64,
-                          "Created At": "Thu, 06 Mar 2025 20:00:36 GMT",
                           "Labels": 65,
-                          "Labor Time (s)": 348.273675,
                           "Order ID": "0101109828",
-                          "Packed At": "Fri, 07 Mar 2025 14:00:01 GMT",
                           "Pallets": 1,
                           "Retailer": "Retailer1",
                           "SKUs": 1,
@@ -748,11 +782,8 @@
                           "ASN Sent At": null,
                           "Brand": "Brand1",
                           "Cartons": 64,
-                          "Created At": "Thu, 06 Mar 2025 20:00:38 GMT",
                           "Labels": 65,
-                          "Labor Time (s)": 229.07347299999998,
                           "Order ID": "01009827",
-                          "Packed At": "Fri, 07 Mar 2025 15:26:02 GMT",
                           "Pallets": 1,
                           "Retailer": "Retailer1",
                           "SKUs": 1,
@@ -764,11 +795,8 @@
                           "ASN Sent At": "Fri, 07 Mar 2025 15:36:48 GMT",
                           "Brand": "Brand1",
                           "Cartons": 2,
-                          "Created At": "Thu, 06 Mar 2025 20:00:37 GMT",
                           "Labels": 3,
-                          "Labor Time (s)": 34.484888,
                           "Order ID": "01019824",
-                          "Packed At": "Fri, 07 Mar 2025 15:36:48 GMT",
                           "Pallets": 1,
                           "Retailer": "Retailer1",
                           "SKUs": 1,
@@ -791,7 +819,10 @@
                   "type": "object",
                   "properties": {
                     "message": { "type": "string" },
-                    "error": { "type": "object", "properties": { "code": { "type": "string" } } }
+                    "error": {
+                      "type": "object",
+                      "properties": { "code": { "type": "string" } }
+                    }
                   }
                 }
               }
