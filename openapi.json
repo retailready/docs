@@ -683,7 +683,154 @@
         }
       }
     },
-
+    "/api/v1/orders/analytics/table": {
+      "get": {
+        "summary": "Get Orders Analytics Table",
+        "description": "Fetches a paginated list of orders with analytics data.",
+        "tags": ["Orders"],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "created_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "created_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "retailers",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          { "name": "brands", "in": "query", "schema": { "type": "string" } },
+          { "name": "asn", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of orders analytics table.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Orders analytics table retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Cartons": { "type": "integer", "example": 64 },
+                          "Labels": { "type": "integer", "example": 65 },
+                          "Order ID": {
+                            "type": "string",
+                            "example": "ULTAPO-0101109828"
+                          },
+                          "Pallets": { "type": "integer", "example": 1 },
+                          "SKUs": { "type": "integer", "example": 1 },
+                          "Status": { "type": "string", "example": "Staged" },
+                          "Units": { "type": "integer", "example": 768 },
+                          "VAS Actions": { "type": "integer", "example": 0 }
+                        }
+                      },
+                      "example": [
+                        {
+                          "ASN Sent At": null,
+                          "Brand": "Brand1",
+                          "Cartons": 64,
+                          "Labels": 65,
+                          "Order ID": "0101109828",
+                          "Pallets": 1,
+                          "Retailer": "Retailer1",
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 768,
+                          "VAS Actions": 0
+                        },
+                        {
+                          "ASN Sent At": null,
+                          "Brand": "Brand1",
+                          "Cartons": 64,
+                          "Labels": 65,
+                          "Order ID": "01009827",
+                          "Pallets": 1,
+                          "Retailer": "Retailer1",
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 768,
+                          "VAS Actions": 0
+                        },
+                        {
+                          "ASN Sent At": "Fri, 07 Mar 2025 15:36:48 GMT",
+                          "Brand": "Brand1",
+                          "Cartons": 2,
+                          "Labels": 3,
+                          "Order ID": "01019824",
+                          "Pallets": 1,
+                          "Retailer": "Retailer1",
+                          "SKUs": 1,
+                          "Status": "Staged",
+                          "Units": 24,
+                          "VAS Actions": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "error": {
+                      "type": "object",
+                      "properties": { "code": { "type": "string" } }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/orders/compliance_report/binary/{order_id}": {
       "get": {
         "summary": "Get Compliance Report Binary",
