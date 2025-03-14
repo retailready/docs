@@ -751,58 +751,66 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "Cartons": { "type": "integer", "example": 64 },
-                          "Labels": { "type": "integer", "example": 65 },
-                          "Order ID": {
+                          "total_cartons": { "type": "integer", "example": 64 },
+                          "total_labels": { "type": "integer", "example": 65 },
+                          "unique_labels": { "type": "integer", "example": 65 },
+                          "order_number": {
                             "type": "string",
                             "example": "0101109828"
                           },
-                          "Pallets": { "type": "integer", "example": 1 },
-                          "SKUs": { "type": "integer", "example": 1 },
-                          "Status": { "type": "string", "example": "Staged" },
-                          "Units": { "type": "integer", "example": 768 },
-                          "VAS Actions": { "type": "integer", "example": 0 }
+                          "total_pallets": { "type": "integer", "example": 1 },
+                          "unique_sku_count": { "type": "integer", "example": 1 },
+                          "order_status": { "type": "string", "example": "Staged" },
+                          "total_units": { "type": "integer", "example": 768 },
+                          "total_vas_actions": { "type": "integer", "example": 0 },
+                          "asn_sent_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
                         }
                       },
                       "example": [
                         {
-                          "ASN Sent At": null,
-                          "Brand": "Brand1",
-                          "Cartons": 64,
-                          "Labels": 65,
-                          "Order ID": "0101109828",
-                          "Pallets": 1,
-                          "Retailer": "Retailer1",
-                          "SKUs": 1,
-                          "Status": "Staged",
-                          "Units": 768,
-                          "VAS Actions": 0
+                          "asn_sent_at": null,
+                          "brand": "Brand1",
+                          "total_cartons": 64,
+                          "total_labels": 65,
+                          "unique_labels": 65,
+                          "order_number": "0101109828",
+                          "total_pallets": 1,
+                          "retailer": "Retailer1",
+                          "unique_sku_count": 1,
+                          "order_status": "Staged",
+                          "total_units": 768,
+                          "total_vas_actions": 0
                         },
                         {
-                          "ASN Sent At": null,
-                          "Brand": "Brand1",
-                          "Cartons": 64,
-                          "Labels": 65,
-                          "Order ID": "01009827",
-                          "Pallets": 1,
-                          "Retailer": "Retailer1",
-                          "SKUs": 1,
-                          "Status": "Staged",
-                          "Units": 768,
-                          "VAS Actions": 0
+                          "asn_sent_at": null,
+                          "brand": "Brand1",
+                          "total_cartons": 64,
+                          "total_labels": 65,
+                          "unique_labels": 65,
+                          "order_number": "01009827",
+                          "total_pallets": 1,
+                          "retailer": "Retailer1",
+                          "unique_sku_count": 1,
+                          "order_status": "Staged",
+                          "total_units": 768,
+                          "total_vas_actions": 0
                         },
                         {
-                          "ASN Sent At": "Fri, 07 Mar 2025 15:36:48 GMT",
-                          "Brand": "Brand1",
-                          "Cartons": 2,
-                          "Labels": 3,
+                          "asn_sent_at": "Fri, 07 Mar 2025 15:36:48 GMT",
+                          "brand": "Brand1",
+                          "total_cartons": 2,
+                          "total_labels": 3,
+                          "unique_labels": 3,
                           "Order ID": "01019824",
-                          "Pallets": 1,
-                          "Retailer": "Retailer1",
-                          "SKUs": 1,
-                          "Status": "Staged",
-                          "Units": 24,
-                          "VAS Actions": 0
+                          "total_pallets": 1,
+                          "retailer": "Retailer1",
+                          "unique_sku_count": 1,
+                          "order_status": "Staged",
+                          "total_units": 24,
+                          "total_vas_actions": 0
                         }
                       ]
                     }
