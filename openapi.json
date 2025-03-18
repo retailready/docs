@@ -355,6 +355,132 @@
         }
       }
     },
+    "/api/user-facilities/v1/facilities": {
+      "get": {
+        "summary": "Get Facility Ids",
+        "description": "Get a list of your facilities and their ids",
+        "tags": ["Facilities"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved facilities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Unique identifier for the facility"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the facility"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": [
+                    {
+                      "id": "a7f92e51-3b8c-42d9-95e8-fb16c89a7432",
+                      "name": "LogisticsPro NYC"
+                    },
+                    {
+                      "id": "b9e71d24-6a5f-48c3-b742-e09d3c8f5a10",
+                      "name": "LogisticsPro LAX"
+                    },
+                    {
+                      "id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
+                      "name": "LogisticsPro CHI"
+                    },
+                    {
+                      "id": "d2f61c39-5e7a-4b84-9c31-8d07a5e32b46",
+                      "name": "LogisticsPro ATL"
+                    }
+                  ],
+                  "message": "Facilities fetched"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Authentication failed",
+                  "error": {
+                    "code": "UNAUTHORIZED"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Error fetching facilities",
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     "/api/v1/orders/{order_id}": {
       "get": {
@@ -685,7 +811,7 @@
     },
     "/api/v1/orders/analytics/table": {
       "get": {
-        "summary": "Get Orders Analytics Table",
+        "summary": "Get Orders Analytics Table v1",
         "description": "Fetches a paginated list of orders with analytics data.",
         "tags": ["Orders"],
         "parameters": [
@@ -839,6 +965,275 @@
         }
       }
     },
+    "/api/v2/orders/analytics/table/{facility_id}": {
+      "get": {
+        "summary": "Get Orders Analytics Table v2",
+        "description": "Fetches a list of orders with analytics data for a specific facility.",
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "facility_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "ID of the facility to fetch orders for"
+          },
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "created_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "created_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "ship_window_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_from",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "packed_at_to",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "retailers",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          { "name": "brands", "in": "query", "schema": { "type": "string" } },
+          { "name": "asn", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of orders analytics table for facility.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Orders analytics table retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "total_cartons": { "type": "integer", "example": 5 },
+                          "total_labels": { "type": "integer", "example": 5 },
+                          "unique_labels": { "type": "integer", "example": 5 },
+                          "order_number": {
+                            "type": "string",
+                            "example": "83652219"
+                          },
+                          "total_pallets": { "type": "integer", "example": 2 },
+                          "unique_sku_count": { "type": "integer", "example": 3 },
+                          "order_status": { "type": "string", "example": "Shipped" },
+                          "total_units": { "type": "integer", "example": 250 },
+                          "total_vas_actions": { "type": "integer", "example": 2 },
+                          "asn_sent_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "brand": { "type": "string", "example": "EcoGear" },
+                          "retailer": { "type": "string", "example": "REI" }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": [
+                    {
+                      "asn_sent_at": "Mon, 15 Apr 2025 09:22:18 GMT",
+                      "brand": "EcoGear",
+                      "order_number": "83652219",
+                      "order_status": "Shipped",
+                      "retailer": "REI",
+                      "total_cartons": 5,
+                      "total_labels": 5,
+                      "total_pallets": 2,
+                      "total_units": 250,
+                      "total_vas_actions": 2,
+                      "unique_labels": 5,
+                      "unique_sku_count": 3
+                    },
+                    {
+                      "asn_sent_at": "Sun, 14 Apr 2025 14:55:32 GMT",
+                      "brand": "OutdoorPro",
+                      "order_number": "76291483",
+                      "order_status": "Shipped",
+                      "retailer": "Bass Pro Shops",
+                      "total_cartons": 8,
+                      "total_labels": 10,
+                      "total_pallets": 3,
+                      "total_units": 480,
+                      "total_vas_actions": 4,
+                      "unique_labels": 10,
+                      "unique_sku_count": 6
+                    },
+                    {
+                      "asn_sent_at": "Fri, 12 Apr 2025 08:17:45 GMT",
+                      "brand": "TrekTech",
+                      "order_number": "92748315",
+                      "order_status": "Packed",
+                      "retailer": "Dick's Sporting Goods",
+                      "total_cartons": 12,
+                      "total_labels": 12,
+                      "total_pallets": 4,
+                      "total_units": 720,
+                      "total_vas_actions": 0,
+                      "unique_labels": 12,
+                      "unique_sku_count": 4
+                    }
+                  ],
+                  "message": "Orders analytics table retrieved successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid facility ID or parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Invalid facility ID format",
+                  "error": {
+                    "code": "INVALID_REQUEST"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Authentication failed",
+                  "error": {
+                    "code": "UNAUTHORIZED"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Facility not found",
+                  "error": {
+                    "code": "NOT_FOUND"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "error": {
+                      "type": "object",
+                      "properties": { "code": { "type": "string" } }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Failed to retrieve orders analytics",
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/orders/compliance_report/binary/{order_id}": {
       "get": {
         "summary": "Get Compliance Report Binary",
@@ -975,6 +1370,7 @@
         }
       }
     }
+
   },
 
   "components": {
