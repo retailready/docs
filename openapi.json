@@ -988,6 +988,14 @@
             "schema": { "type": "integer" }
           },
           {
+            "name": "order_id",
+            "in": "query",
+            "schema": { 
+              "type": "string",
+              "description": "Filter results by specific order ID"
+            }
+          },
+          {
             "name": "created_at_from",
             "in": "query",
             "schema": { "type": "string", "format": "date" }
@@ -1048,6 +1056,11 @@
                       "items": {
                         "type": "object",
                         "properties": {
+                          "order_id": { 
+                            "type": "string", 
+                            "format": "uuid",
+                            "example": "6f8d7e6a-5b4c-3d2e-1f0g-9h8i7j6k5l4m" 
+                          },
                           "total_cartons": { "type": "integer", "example": 5 },
                           "total_labels": { "type": "integer", "example": 5 },
                           "unique_labels": { "type": "integer", "example": 5 },
@@ -1074,6 +1087,7 @@
                 "example": {
                   "data": [
                     {
+                      "order_id": "6f8d7e6a-5b4c-3d2e-1f0g-9h8i7j6k5l4m",
                       "asn_sent_at": "Mon, 15 Apr 2025 09:22:18 GMT",
                       "brand": "EcoGear",
                       "order_number": "83652219",
@@ -1088,6 +1102,7 @@
                       "unique_sku_count": 3
                     },
                     {
+                      "order_id": "7g9h8i7j-6k5l-4m3n-2o1p-0q9r8s7t6u5v",
                       "asn_sent_at": "Sun, 14 Apr 2025 14:55:32 GMT",
                       "brand": "OutdoorPro",
                       "order_number": "76291483",
@@ -1102,6 +1117,7 @@
                       "unique_sku_count": 6
                     },
                     {
+                      "order_id": "8h0i9j8k-7l6m-5n4o-3p2q-1r0s9t8u7v6w",
                       "asn_sent_at": "Fri, 12 Apr 2025 08:17:45 GMT",
                       "brand": "TrekTech",
                       "order_number": "92748315",
