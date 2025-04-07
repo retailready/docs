@@ -481,6 +481,297 @@
         }
       }
     },
+    "/api/v1/facility/brands": {
+      "get": {
+        "summary": "Get Brand Ids",
+        "description": "Get a list of your brands and their ids",
+        "tags": ["Facilities"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved brands",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brand_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Unique identifier for the brand"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the brand"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": [
+                    {
+                      "brand_id": "a7e92c51-4b8c-42d9-95e8-fb16c89a7432",
+                      "name": "Acme Outdoor"
+                    },
+                    {
+                      "brand_id": "b9e71d24-6a5f-48c3-b742-e09d3c8f5a10",
+                      "name": "TechGear Pro"
+                    },
+                    {
+                      "brand_id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
+                      "name": "EcoStyle"
+                    },
+                    {
+                      "brand_id": "d2f61c39-5e7a-4b84-9c31-8d07a5e32b46",
+                      "name": "NorthStar Athletics"
+                    }
+                  ],
+                  "message": "Brands and IDs retrieved successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No brands found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Error code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "No brands found",
+                  "error": {
+                    "code": "NO_BRANDS_FOUND"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/item-master/upload": {
+      "post": {
+        "summary": "Upload Item Master Data",
+        "description": "Upload or update item master data for SKUs",
+        "tags": ["Item Master"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "sku": {
+                              "type": "string",
+                              "description": "Stock Keeping Unit identifier",
+                              "example": "SKU-001"
+                              },
+                            "upc": {
+                              "type": "string",
+                              "description": "Universal Product Code",
+                              "example": "UPC-001"
+                            },
+                            "case_pack_quantity": {
+                              "type": "integer",
+                              "description": "Number of units in a case",
+                              "example": 12
+                            },
+                            "case_barcode": {
+                              "type": "string",
+                              "description": "Barcode for the case",
+                              "example": "CASE-001"
+                            },
+                            "brand_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "UUID of the brand",
+                              "example": "074b6f57-0b93-4899-9fc5-7e89c35fc0ba"
+                            },
+                            "facility_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "UUID of the facility",
+                              "example": "77dcdcab-46cf-4a82-ae29-f0d3afbb1b45"
+                            },
+                            "height": {
+                              "type": "integer",
+                              "description": "Height of the item in inches",
+                              "example": 10
+                            },
+                            "width": {
+                              "type": "integer",
+                              "description": "Width of the item in inches",
+                              "example": 15
+                            },
+                            "length": {
+                              "type": "integer",
+                              "description": "Length of the item in inches",
+                              "example": 20
+                            },
+                            "weight": {
+                              "type": "integer",
+                              "description": "Weight of the item in pounds",
+                              "example": 5
+                            },
+                            "cases_per_layer": {
+                              "type": "integer",
+                              "description": "Number of cases per layer on a pallet",
+                              "example": 8
+                            },
+                            "layers_per_pallet": {
+                              "type": "integer",
+                              "description": "Number of layers per pallet",
+                              "example": 4
+                            },
+                            "pallet_height": {
+                              "type": "integer",
+                              "description": "Height of a full pallet in inches",
+                              "example": 120
+                            },
+                            "pallet_weight": {
+                              "type": "integer",
+                              "description": "Weight of a full pallet in pounds",
+                              "example": 200
+                            },
+                            "lot_tracked": {
+                              "type": "boolean",
+                              "description": "Whether the item is tracked by lot number",
+                              "example": true
+                            },
+                            "exp_tracked": {
+                              "type": "boolean",
+                              "description": "Whether the item is tracked by expiration date",
+                              "example": false
+                            }
+                          },
+                        
+                        "required": [
+                          "sku",
+                          "upc",
+                          "case_pack_quantity",
+                          "case_barcode",
+                          "brand_id",
+                          "facility_id"
+                        
+                      ]
+                    }
+                  }
+                },
+                "required": ["data"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Items created or updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message indicating number of items created/updated"
+                    }
+                  }
+                },
+                "examples": {
+                  "created": {
+                    "value": {
+                      "message": "Created 1 items."
+                    }
+                  },
+                  "updated": {
+                    "value": {
+                      "message": "Updated 1 items."
+                    }
+                  },
+                  "noChanges": {
+                    "value": {
+                      "message": "No changes were made to the item master."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Error code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "UPC UPC-001 must be the same as the existing UPC UPC-003 for SKU SKU-003 in item 0",
+                  "error": {
+                    "code": "INVALID_REQUEST"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
 
     "/api/v1/orders/{order_id}": {
       "get": {
@@ -664,14 +955,14 @@
                                     },
                                     "length": {
                                       "type": "number",
-                                      "example": 20
-                                    },
+                          "example": 20
+                        },
                                     "weight_unit": {
                                       "type": "string",
                                       "example": "lb"
                                     },
-                                    "weight": {
-                                      "type": "number",
+                        "weight": {
+                          "type": "number",
                                       "example": 14
                                     },
                                     "skus": {
@@ -700,7 +991,7 @@
                                             ]
                                           },
                                           "quantity": {
-                                            "type": "integer",
+                          "type": "integer",
                                             "example": 3
                                           }
                                         }
@@ -793,10 +1084,10 @@
                         "code": {
                           "type": "string"
                         }
-                      }
-                    }
-                  }
-                },
+              }
+            }
+          }
+        },
                 "example": {
                   "message": "Order details retrieval failed",
                   "error": {
@@ -1181,11 +1472,11 @@
                       "properties": {
                         "code": {
                           "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
+            }
+          }
+        }
+      }
+    },
                 "example": {
                   "message": "Authentication failed",
                   "error": {
