@@ -772,7 +772,522 @@
       }
     },
     
-
+    "/api/v1/orders/create": {
+      
+        "post": {
+          "summary": "Create Order",
+          "description": "Create a new order with items, dates, and address information",
+          "tags": ["Orders"],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "warehouse_order_number": {
+                      "type": "string",
+                      "description": "Warehouse order number",
+                      "example": "some-order-number"
+                    },
+                    "po_number": {
+                      "type": "string",
+                      "description": "Purchase order number",
+                      "example": "some-po-number"
+                    },
+                    "external_order_number": {
+                      "type": "string",
+                      "description": "Customer's order number",
+                      "example": "some-customer-order-number"
+                    },
+                    "brand_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "UUID of the brand",
+                      "example": "1a1fd47b-baa9-4936-9a58-b3e8caa2e2c7"
+                    },
+                    "dept_number": {
+                      "type": "string",
+                      "description": "Department number",
+                      "example": "123456"
+                    },
+                    "purchase_order_type": {
+                      "type": "string",
+                      "description": "Type of purchase order",
+                      "example": "Test Department"
+                    },
+                    "retailer_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "UUID of the retailer",
+                      "example": "bdd544c7-52f8-453c-b204-c8cffeec810d"
+                    },
+                    "transportation_method": {
+                      "type": "string",
+                      "description": "Method of transportation",
+                      "example": "FREIGHT"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sku": {
+                            "type": "string",
+                            "description": "Stock Keeping Unit",
+                            "example": "bed-sheets-sku"
+                          },
+                          "upc": {
+                            "type": "string",
+                            "description": "Universal Product Code",
+                            "example": "bed-sheets-upc"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "Quantity of items",
+                            "example": 10
+                          },
+                          "case_pack_quantity": {
+                            "type": "integer",
+                            "description": "Number of items per case",
+                            "example": 5
+                          },
+                          "case_barcode": {
+                            "type": "string",
+                            "description": "Barcode for the case",
+                            "example": "bed-sheets-case-upc"
+                          },
+                          "vendor_pn": {
+                            "type": "string",
+                            "description": "Vendor part number",
+                            "example": "vendor-part-number"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Product description",
+                            "example": "soft bed sheets"
+                          }
+                        },
+                        "required": ["upc", "quantity", "case_pack_quantity", "case_barcode"]
+                      }
+                    },
+                    "dates": {
+                      "type": "object",
+                      "properties": {
+                        "requested_delivery_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-15"
+                        },
+                        "earliest_delivery_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-10"
+                        },
+                        "latest_delivery_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-20"
+                        },
+                        "earliest_ship_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-05"
+                        },
+                        "latest_ship_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-12"
+                        },
+                        "cancel_by_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-25"
+                        },
+                        "requested_ship_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-08"
+                        },
+                        "stage_by_date": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2024-08-01"
+                        }
+                      }
+                    },
+                    "address_data": {
+                      "type": "object",
+                      "properties": {
+                        "ship_from": {
+                          "type": "object",
+                          "properties": {
+                            "contact_name": {
+                              "type": "string",
+                              "example": "Test 3PL"
+                            },
+                            "address_line_1": {
+                              "type": "string",
+                              "example": "123 York St"
+                            },
+                            "address_line_2": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "city": {
+                              "type": "string",
+                              "example": "San Francisco"
+                            },
+                            "state": {
+                              "type": "string",
+                              "example": "CA"
+                            },
+                            "country": {
+                              "type": "string",
+                              "example": "USA"
+                            },
+                            "zip": {
+                              "type": "string",
+                              "example": "94133"
+                            },
+                            "facility_code": {
+                              "type": "string",
+                              "example": "9431"
+                            }
+                          },
+                          "required": ["contact_name", "address_line_1", "city", "state", "country", "zip"]
+                        },
+                        "ship_to": {
+                          "type": "object",
+                          "properties": {
+                            "contact_name": {
+                              "type": "string",
+                              "example": "Test Retailer"
+                            },
+                            "address_line_1": {
+                              "type": "string",
+                              "example": "123 Union St"
+                            },
+                            "address_line_2": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "city": {
+                              "type": "string",
+                              "example": "New York"
+                            },
+                            "state": {
+                              "type": "string",
+                              "example": "NY"
+                            },
+                            "country": {
+                              "type": "string",
+                              "example": "United States"
+                            },
+                            "zip": {
+                              "type": "string",
+                              "example": "10001"
+                            },
+                            "address_number": {
+                              "type": "string",
+                              "example": "1234"
+                            }
+                          },
+                          "required": ["contact_name", "address_line_1", "city", "state", "country", "zip"]
+                        },
+                        "bill_to": {
+                          "$ref": "#/components/schemas/Address"
+                        },
+                        "mark_for": {
+                          "$ref": "#/components/schemas/Address"
+                        }
+                      },
+                      "required": ["ship_from", "ship_to"]
+                    }
+                  },
+                  "required": [
+                    "warehouse_order_number",
+                    "po_number",
+                    "brand_id",
+                    "retailer_id",
+                    "items",
+                    "dates",
+                    "address_data"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Order created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "Order created successfully"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "items": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "case_barcode": {
+                                  "type": "string"
+                                },
+                                "case_pack_quantity": {
+                                  "type": "integer"
+                                },
+                                "product_desc": {
+                                  "type": "string"
+                                },
+                                "quantity": {
+                                  "type": "integer"
+                                },
+                                "sku": {
+                                  "type": "string"
+                                },
+                                "upc": {
+                                  "type": "string"
+                                },
+                                "vendor_pn": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "order": {
+                            "type": "object",
+                            "properties": {
+                              "Z7_address_location_number": {
+                                "type": "string",
+                                "example": "1234"
+                              },
+                              "bill_to_contact_address_line1": {
+                                "type": "string",
+                                "example": "123 Union St"
+                              },
+                              "bill_to_contact_address_line2": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "bill_to_contact_city": {
+                                "type": "string",
+                                "example": "New York"
+                              },
+                              "bill_to_contact_country": {
+                                "type": "string",
+                                "example": "United States"
+                              },
+                              "bill_to_contact_name": {
+                                "type": "string",
+                                "example": "Test Retailer"
+                              },
+                              "bill_to_contact_province": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "bill_to_contact_zip": {
+                                "type": "string",
+                                "example": "10001"
+                              },
+                              "brand_id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "3b2fd47b-caa9-4936-9a58-b3e8caa2e2c7"
+                              },
+                              "cancel_by_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Sun, 25 Aug 2024 00:00:00 GMT"
+                              },
+                              "dept_number": {
+                                "type": "string",
+                                "example": "123456"
+                              },
+                              "earliest_delivery_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Sat, 10 Aug 2024 00:00:00 GMT"
+                              },
+                              "earliest_ship_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Mon, 05 Aug 2024 00:00:00 GMT"
+                              },
+                              "external_order_number": {
+                                "type": "string",
+                                "example": "some-customer-order-number"
+                              },
+                              "facility_id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "88dcdcab-46cf-4a82-ae29-f0d3afbb1b45"
+                              },
+                              "latest_delivery_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Tue, 20 Aug 2024 00:00:00 GMT"
+                              },
+                              "latest_ship_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Mon, 12 Aug 2024 00:00:00 GMT"
+                              },
+                              "merchant": {
+                                "type": "string",
+                                "example": "Home Depot"
+                              },
+                              "picksheet_code": {
+                                "type": "string",
+                                "example": "some-order-number"
+                              },
+                              "po_number": {
+                                "type": "string",
+                                "example": "some-po-number"
+                              },
+                              "purchase_order_type": {
+                                "type": "string",
+                                "example": "Test Department"
+                              },
+                              "requested_delivery_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Thu, 15 Aug 2024 00:00:00 GMT"
+                              },
+                              "requested_ship_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Thu, 08 Aug 2024 00:00:00 GMT"
+                              },
+                              "retailer_id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "cdd544c7-52f8-453c-b204-c8cffeec810d"
+                              },
+                              "ship_from_contact_address_line1": {
+                                "type": "string",
+                                "example": "123 York St"
+                              },
+                              "ship_from_contact_address_line2": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "ship_from_contact_city": {
+                                "type": "string",
+                                "example": "San Francisco"
+                              },
+                              "ship_from_contact_country": {
+                                "type": "string",
+                                "example": "USA"
+                              },
+                              "ship_from_contact_name": {
+                                "type": "string",
+                                "example": "Test 3PL"
+                              },
+                              "ship_from_contact_state": {
+                                "type": "string",
+                                "example": "CA"
+                              },
+                              "ship_from_contact_zip": {
+                                "type": "string",
+                                "example": "94133"
+                              },
+                              "ship_to_contact_address_line1": {
+                                "type": "string",
+                                "example": "123 Union St"
+                              },
+                              "ship_to_contact_address_line2": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "ship_to_contact_city": {
+                                "type": "string",
+                                "example": "New York"
+                              },
+                              "ship_to_contact_country": {
+                                "type": "string",
+                                "example": "United States"
+                              },
+                              "ship_to_contact_name": {
+                                "type": "string",
+                                "example": "Test Retailer"
+                              },
+                              "ship_to_contact_province": {
+                                "type": "string",
+                                "example": "NY"
+                              },
+                              "ship_to_contact_zip": {
+                                "type": "string",
+                                "example": "10001"
+                              },
+                              "stage_by_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "Thu, 01 Aug 2024 00:00:00 GMT"
+                              },
+                              "transportation_method": {
+                                "type": "string",
+                                "example": "FREIGHT"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - validation error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Error message"
+                      },
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "example": "INVALID_REQUEST"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "Failed to create order: ship_from_contact_name is required for retailer bdd202-jfla-sfjdkfd-8293810d",
+                    "error": {
+                      "code": "INVALID_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    },
     "/api/v1/orders/{order_id}": {
       "get": {
         "summary": "Get Order Details",
