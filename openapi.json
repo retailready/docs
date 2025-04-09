@@ -580,7 +580,7 @@
         }
       }
     },
-    "/api/v1/item-master/upload": {
+    "/api/v1/item-master": {
       "post": {
         "summary": "Upload Item Master Data",
         "description": "Upload or update item master data for SKUs",
@@ -795,6 +795,11 @@
                       "description": "Warehouse order number",
                       "example": "some-order-number"
                     },
+                    "dc_number": {
+                      "type": "string",
+                      "description": "DC number",
+                      "example": "some-dc-number"
+                    },
                     "po_number": {
                       "type": "string",
                       "description": "Purchase order number",
@@ -809,7 +814,7 @@
                       "type": "string",
                       "format": "uuid",
                       "description": "UUID of the brand",
-                      "example": "1a1fd47b-baa9-4936-9a58-b3e8caa2e2c7"
+                      "example": "952a9a67-6738-476e-a763-4855c51cc3f7"
                     },
                     "dept_number": {
                       "type": "string",
@@ -825,7 +830,7 @@
                       "type": "string",
                       "format": "uuid",
                       "description": "UUID of the retailer",
-                      "example": "bdd544c7-52f8-453c-b204-c8cffeec810d"
+                      "example": "d11dd469-a41b-4f7e-9155-f97b00e03567"
                     },
                     "transportation_method": {
                       "type": "string",
@@ -840,17 +845,17 @@
                           "sku": {
                             "type": "string",
                             "description": "Stock Keeping Unit",
-                            "example": "bed-sheets-sku"
+                            "example": "pillow-sku"
                           },
                           "upc": {
                             "type": "string",
                             "description": "Universal Product Code",
-                            "example": "bed-sheets-upc"
+                            "example": "pillow-upc"
                           },
                           "quantity": {
                             "type": "integer",
                             "description": "Quantity of items",
-                            "example": 10
+                            "example": 5
                           },
                           "case_pack_quantity": {
                             "type": "integer",
@@ -860,7 +865,7 @@
                           "case_barcode": {
                             "type": "string",
                             "description": "Barcode for the case",
-                            "example": "bed-sheets-case-upc"
+                            "example": "pillow-case-upc"
                           },
                           "vendor_pn": {
                             "type": "string",
@@ -870,7 +875,7 @@
                           "description": {
                             "type": "string",
                             "description": "Product description",
-                            "example": "soft bed sheets"
+                            "example": "soft pillows"
                           }
                         },
                         "required": ["upc", "quantity", "case_pack_quantity", "case_barcode"]
@@ -914,7 +919,7 @@
                           "format": "date",
                           "example": "2024-08-08"
                         },
-                        "stage_by_date": {
+                        "stage_by": {
                           "type": "string",
                           "format": "date",
                           "example": "2024-08-01"
@@ -924,18 +929,18 @@
                     "address_data": {
                       "type": "object",
                       "properties": {
-                        "ship_from": {
+                        "ship_from_contact": {
                           "type": "object",
                           "properties": {
-                            "contact_name": {
+                            "name": {
                               "type": "string",
                               "example": "Test 3PL"
                             },
-                            "address_line_1": {
+                            "address_line1": {
                               "type": "string",
                               "example": "123 York St"
                             },
-                            "address_line_2": {
+                            "address_line2": {
                               "type": "string",
                               "nullable": true
                             },
@@ -960,20 +965,20 @@
                               "example": "9431"
                             }
                           },
-                          "required": ["contact_name", "address_line_1", "city", "state", "country", "zip"]
+                          "required": ["name", "address_line1", "city", "state", "country", "zip"]
                         },
-                        "ship_to": {
+                        "ship_to_contact": {
                           "type": "object",
                           "properties": {
-                            "contact_name": {
+                            "name": {
                               "type": "string",
                               "example": "Test Retailer"
                             },
-                            "address_line_1": {
+                            "address_line1": {
                               "type": "string",
                               "example": "123 Union St"
                             },
-                            "address_line_2": {
+                            "address_line2": {
                               "type": "string",
                               "nullable": true
                             },
@@ -981,7 +986,7 @@
                               "type": "string",
                               "example": "New York"
                             },
-                            "state": {
+                            "province": {
                               "type": "string",
                               "example": "NY"
                             },
@@ -998,26 +1003,23 @@
                               "example": "1234"
                             }
                           },
-                          "required": ["contact_name", "address_line_1", "city", "state", "country", "zip"]
+                          "required": ["name", "address_line1", "city", "province", "country", "zip"]
                         },
-                        "bill_to": {
+                        "bill_to_contact": {
                           "$ref": "#/components/schemas/Address"
                         },
-                        "mark_for": {
+                        "mark_for_contact": {
                           "$ref": "#/components/schemas/Address"
                         }
                       },
-                      "required": ["ship_from", "ship_to"]
+                      "required": ["ship_from_contact", "ship_to_contact"]
                     }
                   },
                   "required": [
-                    "warehouse_order_number",
-                    "po_number",
-                    "brand_id",
                     "retailer_id",
-                    "items",
-                    "dates",
-                    "address_data"
+                    "brand_id",
+                    "warehouse_order_number",
+                    "po_number"
                   ]
                 }
               }
@@ -1107,7 +1109,7 @@
                               "brand_id": {
                                 "type": "string",
                                 "format": "uuid",
-                                "example": "3b2fd47b-caa9-4936-9a58-b3e8caa2e2c7"
+                                "example": "952a9a67-6738-476e-a763-4855c51cc3f7"
                               },
                               "cancel_by_date": {
                                 "type": "string",
@@ -1176,7 +1178,7 @@
                               "retailer_id": {
                                 "type": "string",
                                 "format": "uuid",
-                                "example": "cdd544c7-52f8-453c-b204-c8cffeec810d"
+                                "example": "d11dd469-a41b-4f7e-9155-f97b00e03567"
                               },
                               "ship_from_contact_address_line1": {
                                 "type": "string",
@@ -1236,7 +1238,7 @@
                                 "type": "string",
                                 "example": "10001"
                               },
-                              "stage_by_date": {
+                              "stage_by": {
                                 "type": "string",
                                 "format": "date-time",
                                 "example": "Thu, 01 Aug 2024 00:00:00 GMT"
@@ -1277,7 +1279,7 @@
                     }
                   },
                   "example": {
-                    "message": "Failed to create order: ship_from_contact_name is required for retailer bdd202-jfla-sfjdkfd-8293810d",
+                    "message": "Failed to create order: warehouse_order_number is required",
                     "error": {
                       "code": "INVALID_REQUEST"
                     }
@@ -1470,14 +1472,14 @@
                                     },
                                     "length": {
                                       "type": "number",
-                          "example": 20
-                        },
+                                      "example": 20
+                                    },
                                     "weight_unit": {
                                       "type": "string",
                                       "example": "lb"
                                     },
-                        "weight": {
-                          "type": "number",
+                                    "weight": {
+                                      "type": "number",
                                       "example": 14
                                     },
                                     "skus": {
@@ -1506,7 +1508,7 @@
                                             ]
                                           },
                                           "quantity": {
-                          "type": "integer",
+                                            "type": "integer",
                                             "example": 3
                                           }
                                         }
@@ -1599,10 +1601,10 @@
                         "code": {
                           "type": "string"
                         }
-              }
-            }
-          }
-        },
+                      }
+                    }
+                  }
+                },
                 "example": {
                   "message": "Order details retrieval failed",
                   "error": {
@@ -1987,11 +1989,11 @@
                       "properties": {
                         "code": {
                           "type": "string"
-            }
-          }
-        }
-      }
-    },
+                        }
+                      }
+                    }
+                  }
+                },
                 "example": {
                   "message": "Authentication failed",
                   "error": {
@@ -2237,6 +2239,49 @@
             "description": "Error message"
           }
         }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact Name"
+          },
+          "address_line1": {
+            "type": "string",
+            "description": "Street Address"
+          },
+          "address_line2": {
+            "type": "string",
+            "nullable": true,
+            "description": "Address Line 2"
+          },
+          "city": {
+            "type": "string",
+            "description": "City Name"
+          },
+          "state": {
+            "type": "string",
+            "description": "State"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Postal Code"
+          },
+          "facility_code": {
+            "type": "string",
+            "description": "Facility Code"
+          },
+          "address_number": {
+            "type": "string",
+            "description": "Address Number"
+          }
+        },
+        "required": ["name", "address_line1", "city", "state", "country", "zip"]
       }
     },
     "securitySchemes": {
