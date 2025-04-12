@@ -390,6 +390,10 @@
                           "name": {
                             "type": "string",
                             "description": "Name of the facility"
+                          },
+                          "external_facility_code": {
+                            "type": "string",
+                            "description": "External facility code"
                           }
                         }
                       }
@@ -400,19 +404,23 @@
                   "data": [
                     {
                       "id": "a7f92e51-3b8c-42d9-95e8-fb16c89a7432",
-                      "name": "LogisticsPro NYC"
+                      "name": "LogisticsPro NYC",
+                      "external_facility_code": "1234"
                     },
                     {
                       "id": "b9e71d24-6a5f-48c3-b742-e09d3c8f5a10",
-                      "name": "LogisticsPro LAX"
+                      "name": "LogisticsPro LAX",
+                      "external_facility_code": "1234"
                     },
                     {
                       "id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
-                      "name": "LogisticsPro CHI"
+                      "name": "LogisticsPro CHI",
+                      "external_facility_code": "1234"
                     },
                     {
                       "id": "d2f61c39-5e7a-4b84-9c31-8d07a5e32b46",
-                      "name": "LogisticsPro ATL"
+                      "name": "LogisticsPro ATL",
+                      "external_facility_code": "1234"
                     }
                   ],
                   "message": "Facilities fetched"
