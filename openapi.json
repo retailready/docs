@@ -357,7 +357,7 @@
     },
     "/api/user-facilities/v1/facilities": {
       "get": {
-        "summary": "Get Facility Ids",
+        "summary": "Get Facilities",
         "description": "Get a list of your facilities and their ids",
         "tags": ["Facilities"],
         "security": [
@@ -481,10 +481,10 @@
         }
       }
     },
-    "/api/v1/facility/brands": {
+    "/api/v1/facility/{facility_id}/brands": {
       "get": {
-        "summary": "Get Brand Ids",
-        "description": "Get a list of your brands and their ids",
+        "summary": "Get Brands",
+        "description": "Get a list of your brands, ids, and external brand codes",
         "tags": ["Facilities"],
         "security": [
           {
@@ -516,6 +516,10 @@
                           "name": {
                             "type": "string",
                             "description": "Name of the brand"
+                          },
+                          "external_brand_code": {
+                            "type": "string",
+                            "description": "External Brand Code"
                           }
                         }
                       }
@@ -526,28 +530,123 @@
                   "data": [
                     {
                       "brand_id": "a7e92c51-4b8c-42d9-95e8-fb16c89a7432",
-                      "name": "Acme Outdoor"
+                      "name": "Acme Outdoor",
+                      "external_brand_code": "12G79"
                     },
                     {
                       "brand_id": "b9e71d24-6a5f-48c3-b742-e09d3c8f5a10",
-                      "name": "TechGear Pro"
+                      "name": "TechGear Pro",
+                      "external_brand_code": "12G79"
                     },
                     {
                       "brand_id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
-                      "name": "EcoStyle"
+                      "name": "EcoStyle",
+                      "external_brand_code": null
                     },
                     {
                       "brand_id": "d2f61c39-5e7a-4b84-9c31-8d07a5e32b46",
-                      "name": "NorthStar Athletics"
+                      "name": "NorthStar Athletics",
+                      "external_brand_code": null
                     }
                   ],
-                  "message": "Brands and IDs retrieved successfully"
+                  "message": "Brand info retrieved successfully"
                 }
               }
             }
           },
           "404": {
             "description": "No brands found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Error code"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "No brands found",
+                  "error": {
+                    "code": "NO_BRANDS_FOUND"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/facility/{facility_id}/retailers?brand_id={brand_id}": {
+      "get": {
+        "summary": "Get Retailers",
+        "description": "Get a list of your retailers, filter by brand",
+        "tags": ["Facilities"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retailers retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "retailer_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Unique identifier for the retailer"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the retailer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": [
+                    {
+                      "retailer_id": "f8e71d24-9a5f-48c3-b742-e09d3c8f5a10",
+                      "name": "Target"
+                    },
+                    {
+                      "retailer_id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
+                      "name": "CVS"
+                    }
+                  ],
+                  "message": "Brand info retrieved successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No Retailers found",
             "content": {
               "application/json": {
                 "schema": {
