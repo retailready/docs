@@ -916,7 +916,7 @@
                       "type": "string",
                       "format": "uuid",
                       "description": "UUID of the brand",
-                      "example": "952a9a67-6738-476e-a763-4855c51cc3f7"
+                      "example": "8f47589d-9216-44d7-bd49-55b24d2f914c"
                     },
                     "dept_number": {
                       "type": "string",
@@ -932,7 +932,7 @@
                       "type": "string",
                       "format": "uuid",
                       "description": "UUID of the retailer",
-                      "example": "d11dd469-a41b-4f7e-9155-f97b00e03567"
+                      "example": "a46bcb21-89d1-434d-a3b4-4d32a7211be0"
                     },
                     "transportation_method": {
                       "type": "string",
