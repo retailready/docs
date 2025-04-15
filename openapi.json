@@ -640,11 +640,11 @@
                 "example": {
                   "data": [
                     {
-                      "retailer_id": "f8e71d24-9a5f-48c3-b742-e09d3c8f5a10",
+                      "retailer_id": "7eab3720-1944-4b01-aea6-972492f017e5",
                       "name": "Target"
                     },
                     {
-                      "retailer_id": "c4e82f17-9d3b-47a6-8e59-2f0a13b5d879",
+                      "retailer_id": "1c0bd477-5013-4db8-bc00-9c3a6c65a4da",
                       "name": "CVS"
                     }
                   ],
@@ -733,13 +733,13 @@
                               "type": "string",
                               "format": "uuid",
                               "description": "UUID of the brand",
-                              "example": "074b6f57-0b93-4899-9fc5-7e89c35fc0ba"
+                              "example": "5d705d5e-a3c1-4855-bd57-5e346d90ac93"
                             },
                             "facility_id": {
                               "type": "string",
                               "format": "uuid",
                               "description": "UUID of the facility",
-                              "example": "77dcdcab-46cf-4a82-ae29-f0d3afbb1b45"
+                              "example": "a563d2c0-d5a3-4bfa-ac3d-7ae4f3c13d84"
                             },
                             "height": {
                               "type": "integer",
@@ -883,7 +883,7 @@
       
         "post": {
           "summary": "Create Order",
-          "description": "Create a new order with items, dates, and address information",
+          "description": "Create a new order",
           "tags": ["Orders"],
           "security": [
             {
@@ -897,11 +897,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "dc_number": {
-                      "type": "string",
-                      "description": "DC number",
-                      "example": "some-dc-number"
-                    },
                     "po_number": {
                       "type": "string",
                       "description": "Purchase order number",
@@ -1115,7 +1110,7 @@
                               "type": "string",
                               "example": "10001"
                             },
-                            "address_number": {
+                            "dc_number": {
                               "type": "string",
                               "example": "1234"
                             }
@@ -1160,7 +1155,7 @@
                       "data": {
                         "type": "object",
                         "example": {
-                          "order_id": "04571-498909fajeqwijadfkw089862938fsjfjoe"
+                          "order_id": "9ee194f6-6b55-4e32-a983-66c77d4566be"
                         }
                       }
                     }
@@ -1263,7 +1258,7 @@
                               "properties": {
                                 "external_brand_code": {
                                   "type": "string",
-                                  "example": "d055c26e-fdb0-4b02-96ce-2b38ab3a6c8b",
+                                  "example": "a6d6662a-53b0-4afe-9aaf-42441b0f490d",
                                   "nullable": true
                                 }
                               }
@@ -1273,7 +1268,7 @@
                               "properties": {
                                 "external_facility_code": {
                                   "type": "string",
-                                  "example": "c2f57b89-8d7c-4696-ab3c-02ca5eeef1a0",
+                                  "example": "faba3d7a-c0f8-417b-9eab-4664baa02aaf",
                                   "nullable": true
                                 }
                               }
@@ -1291,7 +1286,7 @@
                             "properties": {
                               "id": {
                                 "type": "string",
-                                "example": "26d9fa81-714a-43e2-a438-ec192b445f7e"
+                                "example": "faba3d7a-c0f8-417b-9eab-4664baa02aaf"
                               },
                               "created_at": {
                                 "type": "string",
