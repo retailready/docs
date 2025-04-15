@@ -481,11 +481,11 @@
         }
       }
     },
-    "/api/v1/facility/{facility_id}/brands": {
+    "/api/brand/v1/facility/{facility_id}": {
       "get": {
         "summary": "Get Brands",
         "description": "Get a list of your brands, ids, and external brand codes",
-        "tags": ["Facilities"],
+        "tags": ["Brands"],
         "security": [
           {
             "bearerAuth": []
@@ -588,11 +588,11 @@
         }
       }
     },
-    "/api/v1/facility/{facility_id}/retailers?brand_id={brand_id}": {
+    "/api/retailer/v1/facility/{facility_id}?brand_id={brand_id}": {
       "get": {
         "summary": "Get Retailers",
         "description": "Get a list of your retailers, filter by brand",
-        "tags": ["Facilities"],
+        "tags": ["Retailers"],
         "security": [
           {
             "bearerAuth": []
